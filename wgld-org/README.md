@@ -1,4 +1,5 @@
 # Progress
 
 - [X] ~ [レンダリングのための下準備](https://wgld.org/d/webgl/w004.html)
-- [ ] [行列(マトリックス)の基礎知識](https://wgld.org/d/webgl/w005.html) ~
+- [x] ~ [行列(マトリックス)の基礎知識](https://wgld.org/d/webgl/w005.html)
+- [x] ~ [シェーダの記述と基礎](https://wgld.org/d/webgl/w008.html)
