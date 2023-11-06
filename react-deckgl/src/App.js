@@ -2,6 +2,10 @@
 import React from 'react';
 import DeckGL from '@deck.gl/react';
 import { LineLayer } from '@deck.gl/layers';
+import { Map } from 'react-map-gl';
+
+// Set your mapbox access token here
+const MAPBOX_ACCESS_TOKEN = '';
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
@@ -23,10 +27,16 @@ function App() {
     new LineLayer({ id: 'line-layer', data })
   ];
 
-  return <DeckGL
-    initialViewState={INITIAL_VIEW_STATE}
-    controller={true}
-    layers={layers} />;
+  return (
+    <DeckGL
+      initialViewState={INITIAL_VIEW_STATE}
+      controller={true}
+    // layers={layers}
+    >
+      <LineLayer id="line-layer" data={data}></LineLayer>
+      {/* <Map mapboxAccessToken={MAPBOX_ACCESS_TOKEN} /> */}
+    </DeckGL>
+  );
 }
 
 export default App;
