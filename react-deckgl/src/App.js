@@ -3,6 +3,8 @@ import React from 'react';
 import { LineLayer } from '@deck.gl/layers';
 import { Map, useControl } from 'react-map-gl';
 import { MapboxOverlay } from '@deck.gl/mapbox';
+import DeckGL from '@deck.gl/react';
+import { MapView, FirstPersonView } from '@deck.gl/core'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 // DeckGL react component
@@ -28,14 +30,24 @@ function App() {
 
   return (
     <div className="app">
-      <Map
+      <DeckGL
+        initialViewState={INITIAL_VIEW_STATE}
+        controller={true}
+        layers={layers}
+      >
+        <MapView id="map" width="50%" controller={true}>
+          <Map mapboxAccessToken={MAPBOX_ACCESS_TOKEN} />
+        </MapView>
+        <FirstPersonView width="50%" x="50%" fovy={50} />
+      </DeckGL>
+      {/* <Map
         initialViewState={INITIAL_VIEW_STATE}
         mapStyle="mapbox://styles/mapbox/dark-v9"
         style={{ width: '100vw', height: '100vh' }}
         mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
       >
         <DeckGLOverlay layers={layers}></DeckGLOverlay>
-      </Map>
+      </Map> */}
     </div>
   );
 }
