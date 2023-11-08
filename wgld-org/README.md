@@ -6,6 +6,7 @@ https://wgld.org/
 - [x] ~ [行列(マトリックス)の基礎知識](https://wgld.org/d/webgl/w005.html)
 - [x] ~ [シェーダの記述と基礎](https://wgld.org/d/webgl/w008.html)
 - [x] ~ [シェーダのコンパイルとリンク](https://wgld.org/d/webgl/w011.html)
+- [x] ~ [ポリゴンのレンダリング](https://wgld.org/d/webgl/w014.html)
 
 # WebGLの基本
 
