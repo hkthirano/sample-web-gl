@@ -7,6 +7,7 @@ https://wgld.org/
 - [x] ~ [シェーダの記述と基礎](https://wgld.org/d/webgl/w008.html)
 - [x] ~ [シェーダのコンパイルとリンク](https://wgld.org/d/webgl/w011.html)
 - [x] ~ [ポリゴンのレンダリング](https://wgld.org/d/webgl/w014.html)
+- [ ] ~ [ポリゴンに色を塗る(頂点色の指定)](https://wgld.org/d/webgl/w015.html)
 
 # WebGLの基本
 
