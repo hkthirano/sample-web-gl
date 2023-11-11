@@ -1,6 +1,8 @@
 // sample_004
 //
 // WebGLで複数のモデルを描画する
+// 
+// https://wgld.org/d/webgl/w016.html
 
 onload = function () {
     // canvasエレメントを取得

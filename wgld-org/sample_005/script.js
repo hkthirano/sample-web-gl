@@ -1,6 +1,8 @@
 // sample_005
 //
 // WebGLでモデル座標変換行列を操作し再帰的にモデルを移動・回転・拡大縮小する
+// 
+// https://wgld.org/d/webgl/w017.html
 
 onload = function () {
     // canvasエレメントを取得

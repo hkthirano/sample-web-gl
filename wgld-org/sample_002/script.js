@@ -1,6 +1,8 @@
 // sample_002
 //
 // WebGLでポリゴンを描画する
+// 
+// https://wgld.org/d/webgl/w014.html
 
 onload = function () {
     // canvasエレメントを取得

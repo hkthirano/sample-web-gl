@@ -1,122 +1,124 @@
 // sample_003
 //
-// WebGL‚Åƒ|ƒŠƒSƒ“‚É’¸“_F‚ğİ’è‚µ‚Ä•`‰æ‚·‚é
+// WebGLã§ãƒãƒªã‚´ãƒ³ã«é ‚ç‚¹è‰²ã‚’è¨­å®šã—ã¦æç”»ã™ã‚‹
+// 
+// https://wgld.org/d/webgl/w015.html
 
 onload = function () {
-    // canvasƒGƒŒƒƒ“ƒg‚ğæ“¾
+    // canvasã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆã‚’å–å¾—
     var c = document.getElementById('canvas');
     c.width = 300;
     c.height = 300;
 
-    // webglƒRƒ“ƒeƒLƒXƒg‚ğæ“¾
+    // webglã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã‚’å–å¾—
     var gl = c.getContext('webgl') || c.getContext('experimental-webgl');
 
-    // canvas‚ğ‰Šú‰»‚·‚éF‚ğİ’è‚·‚é
+    // canvasã‚’åˆæœŸåŒ–ã™ã‚‹è‰²ã‚’è¨­å®šã™ã‚‹
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-    // canvas‚ğ‰Šú‰»‚·‚éÛ‚Ì[“x‚ğİ’è‚·‚é
+    // canvasã‚’åˆæœŸåŒ–ã™ã‚‹éš›ã®æ·±åº¦ã‚’è¨­å®šã™ã‚‹
     gl.clearDepth(1.0);
 
-    // canvas‚ğ‰Šú‰»
+    // canvasã‚’åˆæœŸåŒ–
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    // ’¸“_ƒVƒF[ƒ_‚Æƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_‚Ì¶¬
+    // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã¨ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ã®ç”Ÿæˆ
     var v_shader = create_shader('vs');
     var f_shader = create_shader('fs');
 
-    // ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚Ì¶¬‚ÆƒŠƒ“ƒN
+    // ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆã¨ãƒªãƒ³ã‚¯
     var prg = create_program(v_shader, f_shader);
 
-    // attributeLocation‚ğ”z—ñ‚Éæ“¾
+    // attributeLocationã‚’é…åˆ—ã«å–å¾—
     var attLocation = new Array(2);
     attLocation[0] = gl.getAttribLocation(prg, 'position');
     attLocation[1] = gl.getAttribLocation(prg, 'color');
 
-    // attribute‚Ì—v‘f”‚ğ”z—ñ‚ÉŠi”[
+    // attributeã®è¦ç´ æ•°ã‚’é…åˆ—ã«æ ¼ç´
     var attStride = new Array(2);
     attStride[0] = 3;
     attStride[1] = 4;
 
-    // ’¸“_‚ÌˆÊ’uî•ñ‚ğŠi”[‚·‚é”z—ñ
+    // é ‚ç‚¹ã®ä½ç½®æƒ…å ±ã‚’æ ¼ç´ã™ã‚‹é…åˆ—
     var vertex_position = [
         0.0, 1.0, 0.0,
         1.0, 0.0, 0.0,
         -1.0, 0.0, 0.0
     ];
 
-    // ’¸“_‚ÌFî•ñ‚ğŠi”[‚·‚é”z—ñ
+    // é ‚ç‚¹ã®è‰²æƒ…å ±ã‚’æ ¼ç´ã™ã‚‹é…åˆ—
     var vertex_color = [
         1.0, 0.0, 0.0, 1.0,
         0.0, 1.0, 0.0, 1.0,
         0.0, 0.0, 1.0, 1.0
     ];
 
-    // VBO‚Ì¶¬
+    // VBOã®ç”Ÿæˆ
     var position_vbo = create_vbo(vertex_position);
     var color_vbo = create_vbo(vertex_color);
 
-    // VBO‚ğƒoƒCƒ“ƒh‚µ“o˜^‚·‚é(ˆÊ’uî•ñ)
+    // VBOã‚’ãƒã‚¤ãƒ³ãƒ‰ã—ç™»éŒ²ã™ã‚‹(ä½ç½®æƒ…å ±)
     gl.bindBuffer(gl.ARRAY_BUFFER, position_vbo);
     gl.enableVertexAttribArray(attLocation[0]);
     gl.vertexAttribPointer(attLocation[0], attStride[0], gl.FLOAT, false, 0, 0);
 
-    // VBO‚ğƒoƒCƒ“ƒh‚µ“o˜^‚·‚é(Fî•ñ)
+    // VBOã‚’ãƒã‚¤ãƒ³ãƒ‰ã—ç™»éŒ²ã™ã‚‹(è‰²æƒ…å ±)
     gl.bindBuffer(gl.ARRAY_BUFFER, color_vbo);
     gl.enableVertexAttribArray(attLocation[1]);
     gl.vertexAttribPointer(attLocation[1], attStride[1], gl.FLOAT, false, 0, 0);
 
-    // minMatrix.js ‚ğ—p‚¢‚½s—ñŠÖ˜Aˆ—
-    // matIVƒIƒuƒWƒFƒNƒg‚ğ¶¬
+    // minMatrix.js ã‚’ç”¨ã„ãŸè¡Œåˆ—é–¢é€£å‡¦ç†
+    // matIVã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
     var m = new matIV();
 
-    // Šeís—ñ‚Ì¶¬‚Æ‰Šú‰»
+    // å„ç¨®è¡Œåˆ—ã®ç”Ÿæˆã¨åˆæœŸåŒ–
     var mMatrix = m.identity(m.create());
     var vMatrix = m.identity(m.create());
     var pMatrix = m.identity(m.create());
     var mvpMatrix = m.identity(m.create());
 
-    // ƒrƒ…[À•W•ÏŠ·s—ñ
+    // ãƒ“ãƒ¥ãƒ¼åº§æ¨™å¤‰æ›è¡Œåˆ—
     m.lookAt([0.0, 1.0, 3.0], [0, 0, 0], [0, 1, 0], vMatrix);
 
-    // ƒvƒƒWƒFƒNƒVƒ‡ƒ“À•W•ÏŠ·s—ñ
+    // ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³åº§æ¨™å¤‰æ›è¡Œåˆ—
     m.perspective(90, c.width / c.height, 0.1, 100, pMatrix);
 
-    // Šes—ñ‚ğŠ|‚¯‡‚í‚¹À•W•ÏŠ·s—ñ‚ğŠ®¬‚³‚¹‚é
+    // å„è¡Œåˆ—ã‚’æ›ã‘åˆã‚ã›åº§æ¨™å¤‰æ›è¡Œåˆ—ã‚’å®Œæˆã•ã›ã‚‹
     m.multiply(pMatrix, vMatrix, mvpMatrix);
     m.multiply(mvpMatrix, mMatrix, mvpMatrix);
 
-    // uniformLocation‚Ìæ“¾
+    // uniformLocationã®å–å¾—
     var uniLocation = gl.getUniformLocation(prg, 'mvpMatrix');
 
-    // uniformLocation‚ÖÀ•W•ÏŠ·s—ñ‚ğ“o˜^
+    // uniformLocationã¸åº§æ¨™å¤‰æ›è¡Œåˆ—ã‚’ç™»éŒ²
     gl.uniformMatrix4fv(uniLocation, false, mvpMatrix);
 
-    // ƒ‚ƒfƒ‹‚Ì•`‰æ
+    // ãƒ¢ãƒ‡ãƒ«ã®æç”»
     gl.drawArrays(gl.TRIANGLES, 0, 3);
 
-    // ƒRƒ“ƒeƒLƒXƒg‚ÌÄ•`‰æ
+    // ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã®å†æç”»
     gl.flush();
 
-    // ƒVƒF[ƒ_‚ğ¶¬‚·‚éŠÖ”
+    // ã‚·ã‚§ãƒ¼ãƒ€ã‚’ç”Ÿæˆã™ã‚‹é–¢æ•°
     function create_shader(id) {
-        // ƒVƒF[ƒ_‚ğŠi”[‚·‚é•Ï”
+        // ã‚·ã‚§ãƒ¼ãƒ€ã‚’æ ¼ç´ã™ã‚‹å¤‰æ•°
         var shader;
 
-        // HTML‚©‚çscriptƒ^ƒO‚Ö‚ÌQÆ‚ğæ“¾
+        // HTMLã‹ã‚‰scriptã‚¿ã‚°ã¸ã®å‚ç…§ã‚’å–å¾—
         var scriptElement = document.getElementById(id);
 
-        // scriptƒ^ƒO‚ª‘¶İ‚µ‚È‚¢ê‡‚Í”²‚¯‚é
+        // scriptã‚¿ã‚°ãŒå­˜åœ¨ã—ãªã„å ´åˆã¯æŠœã‘ã‚‹
         if (!scriptElement) { return; }
 
-        // scriptƒ^ƒO‚Ìtype‘®«‚ğƒ`ƒFƒbƒN
+        // scriptã‚¿ã‚°ã®typeå±æ€§ã‚’ãƒã‚§ãƒƒã‚¯
         switch (scriptElement.type) {
 
-            // ’¸“_ƒVƒF[ƒ_‚Ìê‡
+            // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®å ´åˆ
             case 'x-shader/x-vertex':
                 shader = gl.createShader(gl.VERTEX_SHADER);
                 break;
 
-            // ƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_‚Ìê‡
+            // ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ã®å ´åˆ
             case 'x-shader/x-fragment':
                 shader = gl.createShader(gl.FRAGMENT_SHADER);
                 break;
@@ -124,66 +126,66 @@ onload = function () {
                 return;
         }
 
-        // ¶¬‚³‚ê‚½ƒVƒF[ƒ_‚Éƒ\[ƒX‚ğŠ„‚è“–‚Ä‚é
+        // ç”Ÿæˆã•ã‚ŒãŸã‚·ã‚§ãƒ¼ãƒ€ã«ã‚½ãƒ¼ã‚¹ã‚’å‰²ã‚Šå½“ã¦ã‚‹
         gl.shaderSource(shader, scriptElement.text);
 
-        // ƒVƒF[ƒ_‚ğƒRƒ“ƒpƒCƒ‹‚·‚é
+        // ã‚·ã‚§ãƒ¼ãƒ€ã‚’ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã™ã‚‹
         gl.compileShader(shader);
 
-        // ƒVƒF[ƒ_‚ª³‚µ‚­ƒRƒ“ƒpƒCƒ‹‚³‚ê‚½‚©ƒ`ƒFƒbƒN
+        // ã‚·ã‚§ãƒ¼ãƒ€ãŒæ­£ã—ãã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã•ã‚ŒãŸã‹ãƒã‚§ãƒƒã‚¯
         if (gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
 
-            // ¬Œ÷‚µ‚Ä‚¢‚½‚çƒVƒF[ƒ_‚ğ•Ô‚µ‚ÄI—¹
+            // æˆåŠŸã—ã¦ã„ãŸã‚‰ã‚·ã‚§ãƒ¼ãƒ€ã‚’è¿”ã—ã¦çµ‚äº†
             return shader;
         } else {
 
-            // ¸”s‚µ‚Ä‚¢‚½‚çƒGƒ‰[ƒƒO‚ğƒAƒ‰[ƒg‚·‚é
+            // å¤±æ•—ã—ã¦ã„ãŸã‚‰ã‚¨ãƒ©ãƒ¼ãƒ­ã‚°ã‚’ã‚¢ãƒ©ãƒ¼ãƒˆã™ã‚‹
             alert(gl.getShaderInfoLog(shader));
         }
     }
 
-    // ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚ğ¶¬‚µƒVƒF[ƒ_‚ğƒŠƒ“ƒN‚·‚éŠÖ”
+    // ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã‚·ã‚§ãƒ¼ãƒ€ã‚’ãƒªãƒ³ã‚¯ã™ã‚‹é–¢æ•°
     function create_program(vs, fs) {
-        // ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚Ì¶¬
+        // ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
         var program = gl.createProgram();
 
-        // ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚ÉƒVƒF[ƒ_‚ğŠ„‚è“–‚Ä‚é
+        // ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ã‚·ã‚§ãƒ¼ãƒ€ã‚’å‰²ã‚Šå½“ã¦ã‚‹
         gl.attachShader(program, vs);
         gl.attachShader(program, fs);
 
-        // ƒVƒF[ƒ_‚ğƒŠƒ“ƒN
+        // ã‚·ã‚§ãƒ¼ãƒ€ã‚’ãƒªãƒ³ã‚¯
         gl.linkProgram(program);
 
-        // ƒVƒF[ƒ_‚ÌƒŠƒ“ƒN‚ª³‚µ‚­s‚È‚í‚ê‚½‚©ƒ`ƒFƒbƒN
+        // ã‚·ã‚§ãƒ¼ãƒ€ã®ãƒªãƒ³ã‚¯ãŒæ­£ã—ãè¡Œãªã‚ã‚ŒãŸã‹ãƒã‚§ãƒƒã‚¯
         if (gl.getProgramParameter(program, gl.LINK_STATUS)) {
 
-            // ¬Œ÷‚µ‚Ä‚¢‚½‚çƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚ğ—LŒø‚É‚·‚é
+            // æˆåŠŸã—ã¦ã„ãŸã‚‰ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æœ‰åŠ¹ã«ã™ã‚‹
             gl.useProgram(program);
 
-            // ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚µ‚ÄI—¹
+            // ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã—ã¦çµ‚äº†
             return program;
         } else {
 
-            // ¸”s‚µ‚Ä‚¢‚½‚çƒGƒ‰[ƒƒO‚ğƒAƒ‰[ƒg‚·‚é
+            // å¤±æ•—ã—ã¦ã„ãŸã‚‰ã‚¨ãƒ©ãƒ¼ãƒ­ã‚°ã‚’ã‚¢ãƒ©ãƒ¼ãƒˆã™ã‚‹
             alert(gl.getProgramInfoLog(program));
         }
     }
 
-    // VBO‚ğ¶¬‚·‚éŠÖ”
+    // VBOã‚’ç”Ÿæˆã™ã‚‹é–¢æ•°
     function create_vbo(data) {
-        // ƒoƒbƒtƒ@ƒIƒuƒWƒFƒNƒg‚Ì¶¬
+        // ãƒãƒƒãƒ•ã‚¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
         var vbo = gl.createBuffer();
 
-        // ƒoƒbƒtƒ@‚ğƒoƒCƒ“ƒh‚·‚é
+        // ãƒãƒƒãƒ•ã‚¡ã‚’ãƒã‚¤ãƒ³ãƒ‰ã™ã‚‹
         gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
 
-        // ƒoƒbƒtƒ@‚Éƒf[ƒ^‚ğƒZƒbƒg
+        // ãƒãƒƒãƒ•ã‚¡ã«ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
 
-        // ƒoƒbƒtƒ@‚ÌƒoƒCƒ“ƒh‚ğ–³Œø‰»
+        // ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒ³ãƒ‰ã‚’ç„¡åŠ¹åŒ–
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
-        // ¶¬‚µ‚½ VBO ‚ğ•Ô‚µ‚ÄI—¹
+        // ç”Ÿæˆã—ãŸ VBO ã‚’è¿”ã—ã¦çµ‚äº†
         return vbo;
     }
 

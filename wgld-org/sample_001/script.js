@@ -1,6 +1,8 @@
 // sample_001
 //
 // WebGLでコンテキストを初期化する
+// 
+// https://wgld.org/d/webgl/w007.html
 
 onload = function () {
     // canvasエレメントを取得
