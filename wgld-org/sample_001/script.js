@@ -1,3 +1,7 @@
+// sample_001
+//
+// WebGLでコンテキストを初期化する
+
 onload = function () {
     // canvasエレメントを取得
     var c = document.getElementById('canvas');
